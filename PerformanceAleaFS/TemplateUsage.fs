@@ -60,7 +60,7 @@ let testSimpleMutiply() =
         printfn "====> Test SimpleMultiply with Alea GPU F# template usage (#.%d) <====" iter
 
         let timer = Stopwatch.StartNew()
-        let worker = Worker.Default
+        let worker = Util.worker.Value
         printfn "GPU: %s" worker.Device.Name
         timer.Stop()
         printfn "Step 1) Runtime setup                  %f ms" timer.Elapsed.TotalMilliseconds

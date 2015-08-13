@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Alea.CUDA;
 
 namespace PerformanceAleaCS
 {
     static class Util
     {
+        private static Worker worker = null;
+
+        public static Worker Worker
+        {
+            get
+            {
+                if (worker == null)
+                {
+                    // use threadless worker to avoid thread context switching
+                    worker = Worker.Create(Device.Default);
+                }
+                return worker;
+            }
+        }
+
         public static float[] RandomMatrix(int rows, int cols)
         {
             var result = new float[rows * cols];

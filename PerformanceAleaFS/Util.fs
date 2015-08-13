@@ -1,6 +1,7 @@
 ﻿module Util
 
 open System
+open Alea.CUDA
 
 let randomMatrix (rows:int) (cols:int) =
     let rng = Random(4711)
@@ -17,3 +18,6 @@ let verifyResult (a:float32[]) (b:float32[]) (c:float32[]) (aRows:int) (bCols:in
                 let sum' = c.[row * bCols + col]
                 if (abs (sum - sum')) > 0.1f then
                     failwith "Verify failed"
+
+// use threadless worker to avoid thread switching
+let worker = lazy Worker.Create(Device.Default)

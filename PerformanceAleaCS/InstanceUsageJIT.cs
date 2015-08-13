@@ -39,7 +39,7 @@ namespace PerformanceAleaCS
                 Console.WriteLine("====> Test SimpleMultiply with Alea GPU C# JIT instance usage (#.{0}) <====", iter);
 
                 var timer = Stopwatch.StartNew();
-                var worker = Worker.Default;
+                var worker = Util.Worker;
                 Console.WriteLine("GPU: {0}", worker.Device.Name);
                 timer.Stop();
                 Console.WriteLine("Step 1) Runtime setup                   {0} ms", timer.Elapsed.TotalMilliseconds);
