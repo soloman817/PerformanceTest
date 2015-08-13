@@ -62,12 +62,14 @@ namespace PerformanceCUDAfy
                 var gridDim = new dim3(Util.Divup(b.GetLength(1), TileSize), Util.Divup(a.GetLength(0), TileSize));
                 var blockDim = new dim3(TileSize, TileSize);
 
+                // measure first kernel execution, need sync worker
                 timer.Restart();
                 gpu.Launch(gridDim, blockDim, SimpleMultiplyKernel, devA, devB, devC);
                 gpu.Synchronize();
                 timer.Stop();
                 Console.WriteLine("Kernel launch first time               {0} ms", timer.Elapsed.TotalMilliseconds);
 
+                // launch 50 kernels, and sync at last (1 sync only)
                 const int repetitions = 50;
                 timer.Restart();
                 for (var i = 0; i < repetitions; ++i)

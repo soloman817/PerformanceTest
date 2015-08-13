@@ -24,18 +24,22 @@ namespace PerformanceCUDAfy
 
         public static void VerifyResult(float[,] a, float[,] b, float[,] c)
         {
-            for (var row = 0; row < c.GetLength(0); row++)
+            // verify took long time, so you can choose to skip it
+            if (false)
             {
-                for (var col = 0; col < c.GetLength(1); col++)
+                for (var row = 0; row < c.GetLength(0); row++)
                 {
-                    var sum = 0f;
-                    for (var k = 0; k < a.GetLength(1); k++)
+                    for (var col = 0; col < c.GetLength(1); col++)
                     {
-                        sum += a[row, k] * b[k, col];
-                    }
-                    if (Math.Abs(sum - c[row, col]) > 0.1)
-                    {
-                        throw new Exception();
+                        var sum = 0f;
+                        for (var k = 0; k < a.GetLength(1); k++)
+                        {
+                            sum += a[row, k]*b[k, col];
+                        }
+                        if (Math.Abs(sum - c[row, col]) > 0.1)
+                        {
+                            throw new Exception();
+                        }
                     }
                 }
             }

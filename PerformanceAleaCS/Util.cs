@@ -21,19 +21,23 @@ namespace PerformanceAleaCS
 
         public static void VerifyResult(float[] a, float[] b, float[] c, int aRows, int bCols, int aCols_bRows)
         {
-            for (var row = 0; row < aRows; ++row)
+            // verify took long time, so you can choose to skip it
+            if (false)
             {
-                for (var col = 0; col < bCols; ++col)
+                for (var row = 0; row < aRows; ++row)
                 {
-                    var sum = 0.0f;
-                    for (var k = 0; k < aCols_bRows; ++k)
+                    for (var col = 0; col < bCols; ++col)
                     {
-                        sum += a[row*aCols_bRows + k]*b[k*bCols + col];
-                    }
-                    var actual = c[row*bCols + col];
-                    if (Math.Abs(sum - actual) > 0.1f)
-                    {
-                        throw new Exception("Verify failed");
+                        var sum = 0.0f;
+                        for (var k = 0; k < aCols_bRows; ++k)
+                        {
+                            sum += a[row * aCols_bRows + k] * b[k * bCols + col];
+                        }
+                        var actual = c[row * bCols + col];
+                        if (Math.Abs(sum - actual) > 0.1f)
+                        {
+                            throw new Exception("Verify failed");
+                        }
                     }
                 }
             }
